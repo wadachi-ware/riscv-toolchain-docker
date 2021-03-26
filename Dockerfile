@@ -17,7 +17,8 @@ RUN apt-get update \
     autoconf automake autotools-dev curl python3 \
     libmpc-dev libmpfr-dev libgmp-dev gawk \
     build-essential bison flex texinfo gperf \
-    libtool patchutils bc zlib1g-dev libexpat-dev git
+    libtool patchutils bc zlib1g-dev libexpat-dev git \
+    ca-certificates
 
 RUN git clone https://github.com/riscv/riscv-gnu-toolchain.git
 
