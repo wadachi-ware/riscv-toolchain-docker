@@ -4,8 +4,11 @@ ENV DEBIAN_FRONTEND=noninteractive
 ENV RISCV=/opt/riscv
 ENV RISCV_BUILD=/tmp
 ENV PATH="$RISCV/bin:$PATH"
-ENV ARCH="rv32i"
-ENV ABI="ilp32"
+
+ARG ARCH="rv32i"
+ARG ABI="ilp32"
+
+LABEL maintainer="ikanago@ikanago.dev"
 
 WORKDIR $RISCV_BUILD
 
