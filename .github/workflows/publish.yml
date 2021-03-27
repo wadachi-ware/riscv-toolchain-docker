@@ -16,7 +16,7 @@ jobs:
       - name: Cache Docker Layers
         uses: actions/cache@v2
         with:
-          path: /build-cache
+          path: /tmp/build-cache
           key: build-${{ github.sha }}
           restore-keys: |
             build
@@ -33,12 +33,12 @@ jobs:
           context: .
           push: true
           tags: ikanag0/riscv-toolchain:latest
-          cache-from: type=local,src=/build-cache
-          cache-to: type=local,dest=/build-cache-new
+          cache-from: type=local,src=/tmp/build-cache
+          cache-to: type=local,dest=/tmp/build-cache-new
 
       # Work around: https://github.com/docker/build-push-action/blob/master/docs/advanced/cache.md#github-cache
       - name: Move Cache
         run: |
-          rm -rf /build-cache
-          mv /build-cache-new /build-cache
+          rm -rf /tmp/build-cache
+          mv /tmp/build-cache-new /tmp/build-cache
 
