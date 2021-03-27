@@ -1,9 +1,8 @@
-FROM ubuntu:latest
+FROM ubuntu:latest AS builder
 
 ENV DEBIAN_FRONTEND=noninteractive
 ENV RISCV=/opt/riscv
 ENV RISCV_BUILD=/tmp
-ENV PATH="$RISCV/bin:$PATH"
 
 ARG ARCH="rv32i"
 ARG ABI="ilp32"
@@ -27,6 +26,12 @@ WORKDIR $RISCV_BUILD/riscv-gnu-toolchain
 RUN ./configure --prefix=$RISCV --with-arch=$ARCH --with-abi=$ABI \
     && make -j
 
-WORKDIR /
+FROM ubuntu:latest
 
-RUN rm -rf $RISCV_BUILD/riscv-gnu-toolchain
+ENV RISCV=/opt/riscv
+ENV PATH="$RISCV/bin:$PATH"
+
+COPY --from=builder $RISCV $RISCV
+
+CMD [ "/bin/bash", "-l" ]
+
