@@ -24,7 +24,7 @@ RUN git clone https://github.com/riscv/riscv-gnu-toolchain.git
 WORKDIR $RISCV_BUILD/riscv-gnu-toolchain
 
 RUN ./configure --prefix=$RISCV --with-arch=$ARCH --with-abi=$ABI \
-    && make -j
+    && make
 
 FROM ubuntu:latest
 
